@@ -1,0 +1,9 @@
+function display_sourcecode($url)
+{
+$lines = file($url);
+$output = "";
+foreach ($lines as $line_num => $line) { 
+	// loop thru each line and prepend line numbers
+	$output.= "Line #<b>{$line_num}</b> : " . htmlspecialchars($line) . "<br>\n";
+}
+}

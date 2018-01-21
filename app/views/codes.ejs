@@ -1,0 +1,128 @@
+<%
+
+var ctr = 0;
+var element = 0;
+
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Snippy - <%= pageTitle %> Codes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/theme.css" rel="stylesheet">
+
+    <script src="/js/jquery.min.js"></script>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Snippy</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/categories">Categories</a></li>
+            <li><a href="/category-add">Add a Category</a></li>
+            <li><a href="/add-form">Add a Snippet</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+
+      <div class="page-header">
+        <h1><span style="text-transform:uppercase;"><%= pageTitle %></span> Codes</h1>
+      </div>
+
+       <div class="panel-group" id="accordion">
+
+          <% snippets.forEach(function(item) {
+                ctr++;
+
+                if(item.title != "") {
+
+          %>
+
+                    <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal<%= ctr %>" style="width:100%;text-align:left;margin-bottom:5px;"><%= item.title %></button>
+
+                    <div id="myModal<%= ctr %>" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><%= item.title %></h4>
+                          </div>
+                          <div class="modal-body">
+                            <p class="code-text<%= ctr %>" style="white-space:pre-line;"></p>
+                            <script type="text/javascript">
+                                $('.code-text<%= ctr %>').load('/codes/<%= item.cat %>/<%= item.title2 %>.txt');
+                            </script>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" id="btn-delete" class="btn btn-danger btn-delete" data-dismiss="modal" style="float:left;" data-key="<%= element %>-<%= pageTitle %>">Delete</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                <% element++; } %>
+
+
+          <% }); %>
+
+        </div>
+
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <script>
+      jQuery( document ).ready( function(){
+          jQuery('input[type="button"]').click(function() { alert(this.id); });
+      });
+    </script>
+
+    <script src="/js/common.js"></script>
+  </body>
+</html>
